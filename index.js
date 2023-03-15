@@ -1,7 +1,26 @@
 const inquire = require('inquirer');
 const fs = require('fs');
+const express = require('express');
+const mysql = require('mysql2');
+
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 inquire.prompt = ([
+    {
+        type: "list",
+        name: "user",
+        message: "Please enter mysql user name (e.g 'root'):"
+    },
+    {
+        type: "list",
+        name: "password",
+        message: "Please enter mysql password:"
+    },
+
     {
         type: 'list',
         name: 'startSelection',
@@ -10,7 +29,16 @@ inquire.prompt = ([
     },
 ])
     .then((answers) => {
-        const {startSelection} = answers
+        const {user, password, startSelection} = answers;
+        const db = mysql.createConnection(
+            {
+                host: 'localhost',
+                user: `${user}`,
+                password: `${password}`,
+                database: 'employee_tracker'
+            },
+            console.log(`Connected to employee tracker database.`)
+        );
         if (startSelection == 'view all departments')
         {
 
@@ -25,7 +53,12 @@ inquire.prompt = ([
                 message: 'What is the name of the Department'
             }.then((answers) => {
                 const {addDept} = answers;
-
+                let deptdata = `{
+                    department: "${addDept}"
+                }`
+                fs.writeFile('./db.json', deptdata, err => {
+                    console.log(err)
+                })
             })
         ])   
         } else if (startSelection == 'add a role'){
