@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
+//const fs = require('fs');
 const express = require('express');
 const mysql = require('mysql2');
 
@@ -9,14 +9,14 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-inquirer.prompt = ([
+inquirer.prompt([
     {
-        type: "list",
+        type: "input",
         name: "user",
         message: "Please enter mysql user name (e.g 'root'):"
     },
     {
-        type: "list",
+        type: "input",
         name: "password",
         message: "Please enter mysql password:"
     },
@@ -35,10 +35,11 @@ inquirer.prompt = ([
                 host: 'localhost',
                 user: `${user}`,
                 password: `${password}`,
-                database: 'employee_tracker'
-            },
-            console.log(`Connected to employee tracker database.`)
-        );
+                //database: 'employee_tracker'
+            });
+        db.query(`Source db/employee.sql`, function (err, results) {
+            console.log(results);
+        });
         if (startSelection == 'view all departments')
         {
 
@@ -47,22 +48,25 @@ inquirer.prompt = ([
         } else if (startSelection == 'view all employees'){
 
         } else if (startSelection == 'add a department'){
-            inquire.prompt = ([{
+            inquirer.prompt([
+                {
                 type: 'input',
                 name: 'addDept',
                 message: 'What is the name of the Department'
-            }.then((answers) => {
+                },
+        ]) 
+            .then((answers) => {
                 const {addDept} = answers;
-                let deptdata = `{
-                    department: "${addDept}"
-                }`
-                fs.writeFile('./db.json', deptdata, err => {
-                    console.log(err)
-                })
+               // let deptdata = `{
+               //     department: "${addDept}"
+             //   }`
+               // fs.writeFile('./db.json', deptdata, err => {
+                  //  console.log(err)
+              //  })
             })
-        ])   
+          
         } else if (startSelection == 'add a role'){
-            inquirer.prompt = ([{
+            inquirer.prompt([{
                 type: 'input',
                 name: 'addRole',
                 message: 'What is the name of the Role?',
@@ -74,39 +78,47 @@ inquirer.prompt = ([
                 type: `input`,
                 name: `dept`,
                 message: `What department does this role belong to?`
-            }.then((answers) => {
+            }])
+            .then((answers) => {
                 const {addRole, salary, dept} = answers;
                 
             })
-        ])
+        
         } else if (startSelection == 'add an employee'){
-            inquirer.prompt = ([{
+            inquirer.prompt([
+                {
+
                 type: 'input',
                 name: 'fname',
                 message: `What is the Employee's  first name?`,
 
+                },
+                {
                 type: 'input',
                 name: 'lname',
                 message: `What is the Employee's  last name?`,
-
+                },
+                {
                 type: 'list',
                 name: 'role',
-                choices: [],
+                choices: ["Enginner", "Student"],
                 message: `What is the Employee's role?`
+                },
 
-            }.then((answers) => {
+            ])
+             .then((answers) => {
                 const {fname, lname, role} = answers;
                 
             })
-        ])
+        
         } else if (startSelection == 'update an employee role'){
-            inquirer.prompt = ([{
+            inquirer.prompt([{
                 type: 'input',
                 name: 'lname',
                 message: `What is the Employee's  last name?`, 
-            }.then((answers) => {
+            }]).then((answers) => {
                 const { lname } = answers;
             })
-        ])
+        
         }
     })
