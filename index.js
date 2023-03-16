@@ -9,6 +9,13 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+let callback = {
+    type: 'list',
+    name: 'startSelection',
+    choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee", "update an employee role"],
+    message: 'Update/View The Employee Tracker',
+};
+
 inquirer.prompt([
     {
         type: "input",
@@ -21,12 +28,7 @@ inquirer.prompt([
         message: "Please enter mysql password:"
     },
 
-    {
-        type: 'list',
-        name: 'startSelection',
-        choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee", "update an employee role"],
-        message: 'Update/View The Employee Tracker',
-    },
+    callback
 ])
     .then((answers) => {
         const {user, password, startSelection} = answers;
@@ -35,14 +37,19 @@ inquirer.prompt([
                 host: 'localhost',
                 user: `${user}`,
                 password: `${password}`,
-                //database: 'employee_tracker'
+                database: 'employee_tracker'
             });
-        db.query(`Source db/employee.sql`, function (err, results) {
-            console.log(results);
-        });
+////db.query(`source db/employee.sql`, function (err, results) {
+//////console.log(results);
+//////console.log(err);
+////});
         if (startSelection == 'view all departments')
         {
-
+            db.query('select * from department;', function (err, results) {
+                console.log(results);
+                console.log(err);
+                
+            })
         } else if (startSelection == 'view all roles'){
 
         } else if (startSelection == 'view all employees'){
