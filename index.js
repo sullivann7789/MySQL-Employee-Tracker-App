@@ -1,4 +1,4 @@
-const inquire = require('inquirer');
+const inquirer = require('inquirer');
 const fs = require('fs');
 const express = require('express');
 const mysql = require('mysql2');
@@ -9,7 +9,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-inquire.prompt = ([
+inquirer.prompt = ([
     {
         type: "list",
         name: "user",
@@ -62,7 +62,7 @@ inquire.prompt = ([
             })
         ])   
         } else if (startSelection == 'add a role'){
-            inquire.prompt = ([{
+            inquirer.prompt = ([{
                 type: 'input',
                 name: 'addRole',
                 message: 'What is the name of the Role?',
@@ -80,7 +80,7 @@ inquire.prompt = ([
             })
         ])
         } else if (startSelection == 'add an employee'){
-            inquire.prompt = ([{
+            inquirer.prompt = ([{
                 type: 'input',
                 name: 'fname',
                 message: `What is the Employee's  first name?`,
@@ -100,10 +100,12 @@ inquire.prompt = ([
             })
         ])
         } else if (startSelection == 'update an employee role'){
-            inquire.prompt = ([{
-                
+            inquirer.prompt = ([{
+                type: 'input',
+                name: 'lname',
+                message: `What is the Employee's  last name?`, 
             }.then((answers) => {
-                
+                const { lname } = answers;
             })
         ])
         }
