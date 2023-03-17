@@ -58,7 +58,7 @@ inquirer.prompt([
           
         if (startSelection == 'view all departments')
         {
-            db.query('select * from department;', (err, results) => {
+            db.query('select * from department inner join roles on department.id = roles.department_id;', (err, results) => {
                 let deptable = console.table(results);
                 console.log(deptable);
                 startprogram();
@@ -71,7 +71,7 @@ inquirer.prompt([
             });
             
         } else if (startSelection == 'view all roles'){
-            db.query(`select roles.title as Role, department.depname as Department from roles JOIN department ON roles.department_id = department.id;`, (err, results) => {
+            db.query(`select * from roles inner join department on roles.department_id = department.id inner join employee on roles.id = employee.role_id;`, (err, results) => {
                 let viewroles = console.table(results);
                 console.log(viewroles);
                 startprogram();
@@ -183,22 +183,23 @@ inquirer.prompt([
                 choices: roletitle,
                 message: `What is the Employee's role?`
                 },
-                /*{
+                {
                     type: 'input',
                     name: 'mgrid',
                     message: `What is the Employee's  Manager ID?`,
                     
-                },*/
+                }
 
             ])
              .then((answers) => {
-                const {fname, lname, role} = answers;
+                const {fname, lname, role, mgrid} = answers;
                         db.query(`SELECT * from roles where title = '${role}'`, function (err, results){
-                            console.log(results[0].id);
+                            //console.log(results);
+                        db.query(`SELECT * from employee where id = ${mgrid}`, function (err, manid){
+            
                         
-                db.query(`INSERT INTO employee  (first_name, last_name, role_id) 
-                VALUES ("${fname}", "${lname}", "${results[0].id}");`, function (err, res) {
-                    console.log(res);
+                db.query(`INSERT INTO employee  (first_name, last_name, role_id, manager_id) 
+                VALUES ("${fname}", "${lname}", "${results[0].id}", ${manid[0].id});`, function (err, res) {
                     db.query(`SELECT * from employee;`, function (err, res2){
                         let newemp = console.table(res2);
                         console.log(newemp);
@@ -206,6 +207,7 @@ inquirer.prompt([
                     });
 
                 });
+            });
             })
             })
         });
