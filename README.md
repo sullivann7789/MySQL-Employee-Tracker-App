@@ -15,7 +15,13 @@
 - This project was created so employers and management could easily keep track of their workforce and manage their company through a relative database which they can look at, update, and create themselves through a simple  command line interface program with intuitive design. 
         
 ## Installation:
-- Simply clone the code into a repository on your computer from the github, log into your mysql on your terminal. <br> After that, ``` source db/employee.sql ``` on your CLI or terminal and exit your mysql, <br> Then, run ``` npm i && node index``` after that, Simply follow the prompts and you now have access to your database which will be saved on your computer storage. <br> To access your database again, simply run the single code line ``` node index ``` once in your Employee Tracker folder and everything will load as it did before.
+1. Clone the code into a repository on your computer from this github repo.
+2. Log into your mysql on your terminal.
+3. Run ``` source db/employee.sql ``` on your CLI or terminal and exit your mysql.
+4. Then, run ``` npm i && node index```
+5. Log into your mysql using the command line prompt questions, after each answer, hit enter
+6. Then, simply follow the prompts and you now have access to your database which will be saved on your computer storage.
+7. To access your database again, simply run the single code line ``` node index ``` once in your Employee Tracker folder and everything will load as it did before.
         
 ## Usage:
 - Clone the github repo into a folder of your choosing and then follow installation instructions, once finished all you need to do is run the code ``` node index ``` anytime you are in your employee tracker folder and it will work correctly
