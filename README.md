@@ -1,4 +1,5 @@
 # Employee Tracker Program
+![B524FB19-9040-4466-AFFA-7EBCA7D75E89_1_201_a](https://user-images.githubusercontent.com/119015927/225835653-89c6ac72-e0eb-4cb6-b676-8be297c2ceaf.jpeg)
 
 # Table of Contents
 1. [Description](#description)
