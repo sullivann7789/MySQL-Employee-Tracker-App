@@ -5,9 +5,8 @@
 2. [Installation](#installation)
 3. [Usage](#usage)
 4. [Contributing](#contributors)
-5. [Tests](#tests)
-6. [License](#license)
-7. [Questions](#questions)
+5. [License](#license)
+6. [Questions](#questions)
 
 ## Description:
 - This program allows users to create a database of all of their employees at their company, with department, job name, salary, employee id, name, and manager id using mysql, inquirer, and  Node.js
@@ -22,9 +21,7 @@
         
 ## Contributors:
 - Noah Sullivan
-        
-## Tests:
-- 
+
         
 ## License:
 - Copyright (c) 2/16/2023 Noah Sullivan
